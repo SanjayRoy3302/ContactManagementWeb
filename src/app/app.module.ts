@@ -1,9 +1,12 @@
-import { NgModule } from '@angular/core';
+import { NgModule, provideZoneChangeDetection } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
+import { routes, AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ContactHomeComponent } from './Component/contact-home/contact-home.component';
+import { provideHttpClient } from '@angular/common/http';
+import { provideRouter } from '@angular/router';
+  
 
 @NgModule({
   declarations: [
@@ -14,7 +17,7 @@ import { ContactHomeComponent } from './Component/contact-home/contact-home.comp
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes),provideHttpClient()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

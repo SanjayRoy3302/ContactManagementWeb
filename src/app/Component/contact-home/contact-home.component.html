@@ -5,6 +5,36 @@
       </div>
     </div>
 </div>
-  
+<br>
+<br>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Firstname</th>
+      <th scope="col">Lastname</th>
+      <th scope="col">Email</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (item of ContactDetails; track $index) {
+      
+    <tr>
+      <td scope="row">{{ $index }}</td>
+      <td>{{item.firstname}}</td>
+      <td>{{item.lastname}}</td>
+      <td>{{item.email}}</td>
+      <td>
+        <button class="btn btn-primary">Edit</button>
+      </td>
+      <td>
+        <button class="btn btn-danger">delete</button>
+      </td>
+    </tr>
+  }
+  </tbody>
+</table>  
   
   
