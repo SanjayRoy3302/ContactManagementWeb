@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { EditContactComponent } from './Component/edit-contact/edit-contact.component';
 
 @Component({
   selector: 'app-root',

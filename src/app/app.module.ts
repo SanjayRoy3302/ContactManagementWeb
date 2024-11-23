@@ -9,7 +9,7 @@ import { provideRouter } from '@angular/router';
 import { AddContactComponent } from './Component/add-contact/add-contact.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatDialogModule } from '@angular/material/dialog';
-import { Validators,ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { EditContactComponent } from './Component/edit-contact/edit-contact.component';
   
 
@@ -24,7 +24,7 @@ import { EditContactComponent } from './Component/edit-contact/edit-contact.comp
     BrowserModule,
     AppRoutingModule,
     MatDialogModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes),provideHttpClient(), provideAnimationsAsync()],
   bootstrap: [AppComponent]
