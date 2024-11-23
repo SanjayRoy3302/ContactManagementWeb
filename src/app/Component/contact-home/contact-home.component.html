@@ -1,5 +1,13 @@
 <div class="container">
-<button class="btn btn-success" (click)="openModal()">New</button>
+  <div class="row">
+   
+    <div class="col-md-9">
+        <input type="text" style="width: 100%;" id="searchTerm" name="searchTerm" placeholder="Search contacts..." autocomplete="off" [(ngModel)]="searchTerm" (keyup)="search()" />
+    </div>
+    <div class="col-md-3">
+        <button class="btn btn-success" (click)="openModal()">New</button>
+    </div>
+</div>
 <br>
 <br>
 <table class="table table-bordered">
@@ -14,7 +22,7 @@
     </tr>
   </thead>
   <tbody>
-    @for (item of ContactDetails; track $index) {
+    @for (item of contactList; track $index) {
       
     <tr>
       <td scope="row">{{ $index }}</td>
@@ -32,6 +40,3 @@
   </tbody>
 </table>  
 </div>
-<!-- <app-edit-contact (dataFromChild)="handleData($event)"></app-edit-contact> -->
-<!-- <app-edit-contact [fullval]="FullnameObj"></app-edit-contact> -->
-<!-- <app-edit-contact [data1]="data1"></app-edit-contact> -->

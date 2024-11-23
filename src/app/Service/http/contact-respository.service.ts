@@ -17,4 +17,12 @@ export class ContactRespositoryService {
   saveContact(data: any) {
     return this.http.post(this.apiUrl, data);
   }
+
+  updateContact(id:number, data: any) {
+    return this.http.put(this.apiUrl+"/"+id, data);
+  }
+
+  deleteContact(id: number){
+    return this.http.delete(this.apiUrl+"/"+id)
+  }
 }

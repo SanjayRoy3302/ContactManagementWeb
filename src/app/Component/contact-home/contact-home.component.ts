@@ -4,6 +4,7 @@ import { ContactRespositoryService } from '../../Service/http/contact-respositor
 import { MatDialog } from '@angular/material/dialog';
 import { AddContactComponent } from '../add-contact/add-contact.component';
 import { EditContactComponent } from '../edit-contact/edit-contact.component';
+import { CommonService } from '../../Service/common.service';
 
 @Component({
   selector: 'app-contact-home',
@@ -12,14 +13,15 @@ import { EditContactComponent } from '../edit-contact/edit-contact.component';
   styleUrl: './contact-home.component.css'
 })
 export class ContactHomeComponent implements OnInit{
-  ContactDetails!: Array<ContactDetails>;
+  contactDetails!: Array<ContactDetails>;
   ContactDetailsForUpdate! : ContactDetails;
   contactServices!:ContactRespositoryService;
   data1!: ContactDetails;
   FullnameObj!: string;
   searchTerm!: string;
+  contactList!: ContactDetails[];
 
-  constructor(private contactService: ContactRespositoryService,  private matDialog: MatDialog) {
+  constructor(private contactService: ContactRespositoryService,  private matDialog: MatDialog,private commonService: CommonService) {
     this.contactServices = inject (ContactRespositoryService);
     this.contactServices = contactService;
 }
@@ -38,7 +40,8 @@ export class ContactHomeComponent implements OnInit{
 
   getContacts() {
     this.contactServices.getContactDetails().subscribe((res)=>{
-      this.ContactDetails = res;
+      this.contactDetails = res;
+      this.contactList  = res;
     })
   }
 
@@ -72,6 +75,7 @@ export class ContactHomeComponent implements OnInit{
       {
         this.contactServices.deleteContact(id).subscribe((res)=>{
           alert("Contact deleted successfully!");
+          this.commonService.ReloadCurrentRoute();
         })
       }
       else
@@ -81,4 +85,9 @@ export class ContactHomeComponent implements OnInit{
       
     }
     
+    search(): void {
+      this.contactList =new Array<ContactDetails>;
+      var searchNameList = this.contactDetails.filter(x => x.firstname?.toLowerCase().includes(this.searchTerm.toLowerCase()));
+      this.contactList = searchNameList;
+    }
 }

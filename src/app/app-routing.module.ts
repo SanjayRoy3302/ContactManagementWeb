@@ -5,7 +5,6 @@ import { AddContactComponent } from './Component/add-contact/add-contact.compone
 
 export const routes: Routes = [
   {path:"home", component: ContactHomeComponent},
-  {path: "addcontact", component: AddContactComponent}
 ];
 
 @NgModule({

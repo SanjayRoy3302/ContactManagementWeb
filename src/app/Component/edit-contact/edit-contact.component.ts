@@ -4,28 +4,24 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/d
 import { ContactDetails } from '../../Models/contact-details';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CommonService } from '../../Service/common.service';
 
 @Component({
   selector: 'app-edit-contact',
   standalone: false,
-  
   templateUrl: './edit-contact.component.html',
   styleUrl: './edit-contact.component.css'
 })
 export class EditContactComponent implements OnInit{
-  constructor(@Inject(MAT_DIALOG_DATA) public data1:any,private matDialog: MatDialog, private contactService: ContactRespositoryService
-  ,private router: Router, private activeRoute: ActivatedRoute){
+  constructor(@Inject(MAT_DIALOG_DATA) public data:any,private matDialog: MatDialog, private contactService: ContactRespositoryService, private commonService: CommonService){
     debugger;
-    this.contactServices = inject(ContactRespositoryService);
-    this.contactServices = contactService;
-    this.contactDetails = data1;
+    // this.contactServices = inject(ContactRespositoryService);
+    // this.contactServices = contactService;
+    this.contactDetails = data;
   }
   contactDetails!: ContactDetails;
   contactDetailsForm!: FormGroup;
   formValues!: ContactDetails;
-  contactServices!:ContactRespositoryService;
-  @Input() fullval: string = "";
-
   ngOnInit(): void {
     debugger;
     this.resetFormState();
@@ -57,21 +53,16 @@ export class EditContactComponent implements OnInit{
     else
     {
       this.formValues = this.contactDetailsForm.value;
-      this.contactServices.updateContact(this.formValues.id, this.formValues).subscribe((result)=> {
+      this.contactService.updateContact(this.formValues.id, this.formValues).subscribe((result)=> {
         alert("Contact updated successfully!");
         this.contactDetailsForm.reset();
         this.closeModal();
-        this.reloadCurrentRoute();
+        this.commonService.ReloadCurrentRoute();
       });
     }
   }
 
-  reloadCurrentRoute() {
-    let currentUrl = this.router.url;
-    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-        this.router.navigate([currentUrl]);
-    });
-}
+ 
 
 
 }

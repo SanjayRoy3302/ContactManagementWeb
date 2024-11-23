@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ContactDetails } from '../../Models/contact-details';
 import { ContactRespositoryService } from '../../Service/http/contact-respository.service';
+import { Router } from '@angular/router';
+import { CommonService } from '../../Service/common.service';
 
 @Component({
   selector: 'app-add-contact',
@@ -11,7 +13,7 @@ import { ContactRespositoryService } from '../../Service/http/contact-respositor
   styleUrl: './add-contact.component.css'
 })
 export class AddContactComponent implements OnInit {
-  constructor(@Inject(MAT_DIALOG_DATA) public data:any, private matDialog: MatDialog,private contactService: ContactRespositoryService){
+  constructor(@Inject(MAT_DIALOG_DATA) public data:any, private matDialog: MatDialog,private contactService: ContactRespositoryService,private router: Router,private commonService: CommonService){
     this.contactServices = inject (ContactRespositoryService);
     this.contactServices = contactService;
   }
@@ -53,12 +55,11 @@ export class AddContactComponent implements OnInit {
           this.formValues.id=0;
           this.contactServices.saveContact(this.formValues).subscribe((res)=> {
             alert("Contact added successfully!");
-            //this.getContacts();
+            this.commonService.ReloadCurrentRoute();
             this.contactDetailsForm.reset();
             this.closeModal();
           });
         }
     }
   }
-
 }
