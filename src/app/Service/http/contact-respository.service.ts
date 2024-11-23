@@ -13,4 +13,8 @@ export class ContactRespositoryService {
   getContactDetails() {
     return this.http.get<ContactDetails[]>(this.apiUrl+'/GetAllContacts');
   }
+
+  saveContact(data: any) {
+    return this.http.post(this.apiUrl, data);
+  }
 }

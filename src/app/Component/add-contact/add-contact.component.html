@@ -1,0 +1,38 @@
+<div class="container">
+
+<div class="page-title">
+    <div>
+        <span calss="page-title"><h1>Add Contact</h1></span>
+    </div>
+</div>
+
+
+<form [formGroup]="contactDetailsForm" (ngSubmit)="OnSubmit()">
+    <!-- Modal body -->
+    <div class="modal-body">
+      <div class="row mb-2">
+        <div class="col-12">
+          <input type="text" formControlName="firstname" name="firstname" class="form-control" placeholder="Firstname">
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-12">
+          <input type="text" formControlName="lastname"  name="lastname" class="form-control" placeholder="Lastname">
+        </div>
+      </div>
+      <div class="row mb-2"></div>
+      <div class="col-12">
+        <input type="email" formControlName="email"  name="email" class="form-control" placeholder="Email">
+      </div>
+    </div>
+    <br>
+    <br>
+    <!-- Modal footer -->
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Save</button>
+        &nbsp;&nbsp;
+      <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
+    </div>
+    <br>
+  </form>
+</div>
