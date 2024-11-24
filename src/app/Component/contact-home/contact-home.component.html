@@ -1,4 +1,81 @@
 <div class="container">
+ 
+  <div class="row justify-content-between">
+    <div class="col-4">
+      <h5 class="h3">Contact Details Dashboard</h5>
+    </div>
+
+    <div class="row  g-3 align-items-center">
+   
+      <div class="col-md-8">
+          <input type="text" style="width: 100%;" id="searchTerm" name="searchTerm" placeholder="Search contacts..." autocomplete="off" [(ngModel)]="searchTerm" (keyup)="search()" />
+      </div>
+      <div class="col-md-1">
+          <button class="btn btn-success" (click)="openModal()">New</button>
+      </div>
+      <div class="row col-md-3">
+        <div class="row g-3 align-items-center">
+          <div class="col-auto">
+          <label class="control-label" for="noOfRows">No. of Rows</label>
+        </div>
+        <div class="col-auto">
+          <select name="noOfRows" (change)="onTableSizeChange($event)" class="form-select form-select-sm">
+            <option *ngFor="let size of tableSize" [ngValue]="size">
+              {{ size }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+   
+  </div>
+  <br>
+  <table class="table table-striped">
+    <thead class="table-primary">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Firstname</th>
+        <th scope="col">Lastname</th>
+        <th scope="col">Email</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody class="table-striped">
+    <tr *ngFor="let item of contactList | paginate : pagingConfig; let i = index">
+      <td scope="row">{{ i }}</td>
+      <td>{{item.firstname}}</td>
+      <td>{{item.lastname}}</td>
+      <td>{{item.email}}</td>
+      <td>
+        <button class="btn btn-primary" (click)="EditContact(item)">Edit</button>
+      </td>
+      <td>
+        <button class="btn btn-danger" (click)="DeleteContact(item.id)">delete</button>
+      </td>
+    </tr>
+  </tbody>
+  </table>
+  <div class="d-flex justify-content-center">
+    <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange ($event)"> </pagination-controls>
+  
+  
+  </div>
+  </div>
+
+
+
+
+
+
+<!-- 
+
+
+
+
+
+<div class="container">
   <div class="row">
    
     <div class="col-md-9">
@@ -39,4 +116,4 @@
   }
   </tbody>
 </table>  
-</div>
+</div> -->

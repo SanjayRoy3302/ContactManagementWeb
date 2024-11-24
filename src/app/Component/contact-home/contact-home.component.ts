@@ -5,6 +5,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddContactComponent } from '../add-contact/add-contact.component';
 import { EditContactComponent } from '../edit-contact/edit-contact.component';
 import { CommonService } from '../../Service/common.service';
+import { PagingConfig } from '../../Models/paging-config';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-contact-home',
@@ -12,7 +14,7 @@ import { CommonService } from '../../Service/common.service';
   templateUrl: './contact-home.component.html',
   styleUrl: './contact-home.component.css'
 })
-export class ContactHomeComponent implements OnInit{
+export class ContactHomeComponent implements OnInit, PagingConfig{
   contactDetails!: Array<ContactDetails>;
   ContactDetailsForUpdate! : ContactDetails;
   contactServices!:ContactRespositoryService;
@@ -20,10 +22,24 @@ export class ContactHomeComponent implements OnInit{
   FullnameObj!: string;
   searchTerm!: string;
   contactList!: ContactDetails[];
+  currentPage:number  = 1;
+  itemsPerPage: number = 5;
+  totalItems: number = 0;
+
+  tableSize: number[] = [5, 10, 15, 20];
+  //customers = new Array<Customer>();
+
+  pagingConfig: PagingConfig = {} as PagingConfig;
 
   constructor(private contactService: ContactRespositoryService,  private matDialog: MatDialog,private commonService: CommonService) {
     this.contactServices = inject (ContactRespositoryService);
     this.contactServices = contactService;
+
+    this.pagingConfig = {
+      itemsPerPage: this.itemsPerPage,
+      currentPage: this.currentPage,
+      totalItems: this.totalItems
+    }
 }
 
   ngOnInit()
@@ -42,6 +58,7 @@ export class ContactHomeComponent implements OnInit{
     this.contactServices.getContactDetails().subscribe((res)=>{
       this.contactDetails = res;
       this.contactList  = res;
+      this.pagingConfig.totalItems = res.length;
     })
   }
 
@@ -89,5 +106,15 @@ export class ContactHomeComponent implements OnInit{
       this.contactList =new Array<ContactDetails>;
       var searchNameList = this.contactDetails.filter(x => x.firstname?.toLowerCase().includes(this.searchTerm.toLowerCase()));
       this.contactList = searchNameList;
+    }
+
+    onTableDataChange(event:any){
+      this.pagingConfig.currentPage  = event;
+      this.getContacts();
+    }
+    onTableSizeChange(event:any): void {
+      this.pagingConfig.itemsPerPage = event.target.value;
+      this.pagingConfig.currentPage = 1;
+      this.getContacts();
     }
 }

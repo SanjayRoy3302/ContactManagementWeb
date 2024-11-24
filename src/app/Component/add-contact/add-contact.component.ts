@@ -43,12 +43,12 @@ export class AddContactComponent implements OnInit {
   OnSubmit() {
     debugger;
     console.log(this.contactDetailsForm?.value);
-    if(this.contactDetailsForm.invalid)
-    {
-      return alert("Please fill all fields");
-    }
-    else
-    {
+    // if(this.contactDetailsForm.invalid)
+    // {
+    //   return alert("Please fill all fields");
+    // }
+    // else
+    // {
       if(this.contactDetailsForm.value.id==null || this.contactDetailsForm.value.id==0)
       {
           this.formValues = this.contactDetailsForm.value;
@@ -60,6 +60,6 @@ export class AddContactComponent implements OnInit {
             this.closeModal();
           });
         }
-    }
+    //}
   }
 }

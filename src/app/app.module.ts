@@ -11,6 +11,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { EditContactComponent } from './Component/edit-contact/edit-contact.component';
+import { NgxPaginationModule } from 'ngx-pagination';
   
 
 @NgModule({
@@ -26,7 +27,8 @@ import { EditContactComponent } from './Component/edit-contact/edit-contact.comp
     MatDialogModule,
     ReactiveFormsModule,
     FormsModule,
-    CommonModule
+    CommonModule,
+    NgxPaginationModule
   ],
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes),provideHttpClient(), provideAnimationsAsync()],
   bootstrap: [AppComponent]
