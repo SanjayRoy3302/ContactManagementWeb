@@ -33,9 +33,9 @@ export class EditContactComponent implements OnInit{
   {
     this.contactDetailsForm = new FormGroup({
       id: new FormControl(0),
-      firstname:new FormControl('', Validators.pattern('^(?=.*?[A-Za-z])[A-Za-z0-9]+$')),
-      lastname:new FormControl('', Validators.pattern('^(?=.*?[A-Za-z])[A-Za-z0-9]+$')),
-      email:new FormControl('', [Validators.required, Validators.email]),
+      firstname:new FormControl('',[Validators.required, Validators.pattern('^(?=.*?[A-Za-z])[A-Za-z0-9]+$')]),
+      lastname:new FormControl('',[Validators.required, Validators.pattern('^(?=.*?[A-Za-z])[A-Za-z0-9]+$')]),
+      email:new FormControl('', [Validators.required, Validators.email])
     });
   }
 
