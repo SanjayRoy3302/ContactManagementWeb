@@ -6,7 +6,7 @@ import { ContactDetails } from '../../Models/contact-details';
   providedIn: 'root'
 })
 export class ContactRespositoryService {
-  private apiUrl = "https://localhost:44316/api/ContactDetails";
+  private apiUrl = "http://localhost:5049/api/ContactDetails";
   constructor() { }
   http = inject(HttpClient);
 
