@@ -41,25 +41,21 @@ export class AddContactComponent implements OnInit {
   }
 
   OnSubmit() {
-    debugger;
     console.log(this.contactDetailsForm?.value);
     if(this.contactDetailsForm.invalid)
     {
       return alert("Please fill all fields");
     }
-    // else
-    // {
-      if(this.contactDetailsForm.value.id==null || this.contactDetailsForm.value.id==0)
-      {
-          this.formValues = this.contactDetailsForm.value;
-          this.formValues.id=0;
-          this.contactServices.saveContact(this.formValues).subscribe((res)=> {
-            alert("Contact added successfully!");
-            this.commonService.ReloadCurrentRoute();
-            this.contactDetailsForm.reset();
-            this.closeModal();
-          });
-        }
-    //}
+    if(this.contactDetailsForm.value.id==null || this.contactDetailsForm.value.id==0)
+    {
+        this.formValues = this.contactDetailsForm.value;
+        this.formValues.id=0;
+        this.contactServices.saveContact(this.formValues).subscribe((res)=> {
+          alert("Contact added successfully!");
+          this.commonService.ReloadCurrentRoute();
+          this.contactDetailsForm.reset();
+          this.closeModal();
+        });
+    }
   }
 }

@@ -49,7 +49,6 @@ export class ContactHomeComponent implements OnInit, PagingConfig{
   receivedData: string = '';
 
   handleData(data: string) {
-    debugger;
     this.receivedData = data;
   }
 
@@ -86,7 +85,6 @@ export class ContactHomeComponent implements OnInit, PagingConfig{
     }
 
     DeleteContact(id: number) {
-      debugger;
       const isConfirm = confirm("Are you sure you want to delete this contact ?");
       if(isConfirm==true)
       {

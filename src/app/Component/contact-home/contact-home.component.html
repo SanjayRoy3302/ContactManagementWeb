@@ -13,20 +13,7 @@
       <div class="col-md-1">
           <button class="btn btn-success" (click)="openModal()">New</button>
       </div>
-      <div class="row col-md-3">
-        <div class="row g-3 align-items-center">
-          <div class="col-auto">
-          <label class="control-label" for="noOfRows">No. of Rows</label>
-        </div>
-        <div class="col-auto">
-          <select name="noOfRows" (change)="onTableSizeChange($event)" class="form-select form-select-sm">
-            <option *ngFor="let size of tableSize" [ngValue]="size">
-              {{ size }}
-            </option>
-          </select>
-        </div>
-      </div>
-    </div>
+      
   </div>
    
   </div>
@@ -60,7 +47,20 @@
   <div class="d-flex justify-content-center">
     <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange ($event)"> </pagination-controls>
   
-  
+    <div class="row col-md-8 TotalPage">
+      <div class="row g-3 align-items-center">
+        <div class="col-auto">
+        <label class="control-label" for="noOfRows">No. of Rows</label>
+      </div>
+      <div class="col-auto">
+        <select name="noOfRows" (change)="onTableSizeChange($event)" class="form-select form-select-sm">
+          <option *ngFor="let size of tableSize" [ngValue]="size">
+            {{ size }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
   </div>
   </div>
 

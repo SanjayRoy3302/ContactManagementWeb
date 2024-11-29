@@ -14,16 +14,12 @@ import { CommonService } from '../../Service/common.service';
 })
 export class EditContactComponent implements OnInit{
   constructor(@Inject(MAT_DIALOG_DATA) public data:any,private matDialog: MatDialog, private contactService: ContactRespositoryService, private commonService: CommonService){
-    debugger;
-    // this.contactServices = inject(ContactRespositoryService);
-    // this.contactServices = contactService;
     this.contactDetails = data;
   }
   contactDetails!: ContactDetails;
   contactDetailsForm!: FormGroup;
   formValues!: ContactDetails;
   ngOnInit(): void {
-    debugger;
     this.resetFormState();
     this.contactDetailsForm.patchValue(this.contactDetails);
 
@@ -44,7 +40,6 @@ export class EditContactComponent implements OnInit{
   }
 
   OnSubmit() {
-    debugger;
     console.log(this.contactDetailsForm?.value);
     if(this.contactDetailsForm.invalid)
     {
@@ -61,8 +56,4 @@ export class EditContactComponent implements OnInit{
       });
     }
   }
-
- 
-
-
 }
