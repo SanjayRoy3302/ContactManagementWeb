@@ -1,9 +1,7 @@
-import { Component, inject, Inject, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { ContactRespositoryService } from '../../Service/http/contact-respository.service';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ContactDetails } from '../../Models/contact-details';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from '../../Service/common.service';
 
 @Component({
@@ -13,16 +11,16 @@ import { CommonService } from '../../Service/common.service';
   styleUrl: './edit-contact.component.css'
 })
 export class EditContactComponent implements OnInit{
-  constructor(@Inject(MAT_DIALOG_DATA) public data:any,private matDialog: MatDialog, private contactService: ContactRespositoryService, private commonService: CommonService){
-    this.contactDetails = data;
+  constructor(private contactService: ContactRespositoryService, private commonService: CommonService){
   }
   contactDetails!: ContactDetails;
   contactDetailsForm!: FormGroup;
   formValues!: ContactDetails;
+  @Output() newItemEvent = new EventEmitter<string>();
   ngOnInit(): void {
     this.resetFormState();
-    this.contactDetailsForm.patchValue(this.contactDetails);
-
+    if(this.contactDetailsForm!==undefined)
+      this.contactDetailsForm.patchValue(this.contactDetails);
   }
 
   resetFormState()
@@ -36,8 +34,17 @@ export class EditContactComponent implements OnInit{
   }
 
   closeModal() {
-    this.matDialog.closeAll();
+    this.newItemEvent.emit("close");
+    this.commonService.GetOutputEventIfUndefined(this.newItemEvent);
   }
+
+  @Input('SetData')set dataForUpdate(data: any) {
+    debugger;
+    this.contactDetails = data;
+    if(this.contactDetailsForm!==undefined)
+      this.contactDetailsForm.patchValue(this.contactDetails);
+    console.log(data);
+};
 
   OnSubmit() {
     console.log(this.contactDetailsForm?.value);
@@ -51,8 +58,8 @@ export class EditContactComponent implements OnInit{
       this.contactService.updateContact(this.formValues.id, this.formValues).subscribe((result)=> {
         alert("Contact updated successfully!");
         this.contactDetailsForm.reset();
-        this.closeModal();
-        this.commonService.ReloadCurrentRoute();
+        this.newItemEvent.emit("successful");
+        this.contactDetailsForm.reset();
       });
     }
   }

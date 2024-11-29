@@ -1,4 +1,4 @@
-import { Component, Inject, inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, inject, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ContactDetails } from '../../Models/contact-details';
@@ -13,7 +13,7 @@ import { CommonService } from '../../Service/common.service';
   styleUrl: './add-contact.component.css'
 })
 export class AddContactComponent implements OnInit {
-  constructor(@Inject(MAT_DIALOG_DATA) public data:any, private matDialog: MatDialog,private contactService: ContactRespositoryService,private router: Router,private commonService: CommonService){
+  constructor(private matDialog: MatDialog,private contactService: ContactRespositoryService,private router: Router,private commonService: CommonService){
     this.contactServices = inject (ContactRespositoryService);
     this.contactServices = contactService;
   }
@@ -21,8 +21,11 @@ export class AddContactComponent implements OnInit {
   contactDetailsForm!: FormGroup;
   formValues!: ContactDetails;
   contactServices!:ContactRespositoryService;
+  popup = false
+  @Output() newItemEvent = new EventEmitter<string>();
 
   ngOnInit(): void {
+    debugger;
     this.resetFormState();
   }
 
@@ -37,7 +40,8 @@ export class AddContactComponent implements OnInit {
   }
 
   closeModal() {
-    this.matDialog.closeAll();
+    this.newItemEvent.emit("close");
+    this.commonService.GetOutputEventIfUndefined(this.newItemEvent);
   }
 
   OnSubmit() {
@@ -52,9 +56,8 @@ export class AddContactComponent implements OnInit {
         this.formValues.id=0;
         this.contactServices.saveContact(this.formValues).subscribe((res)=> {
           alert("Contact added successfully!");
-          this.commonService.ReloadCurrentRoute();
+          this.newItemEvent.emit("successful");
           this.contactDetailsForm.reset();
-          this.closeModal();
         });
     }
   }

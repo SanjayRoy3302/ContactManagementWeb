@@ -12,6 +12,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { EditContactComponent } from './Component/edit-contact/edit-contact.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { DeleteContactComponent } from './Component/delete-contact/delete-contact.component';
   
 
 @NgModule({
@@ -20,6 +21,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ContactHomeComponent,
     AddContactComponent,
     EditContactComponent,
+    DeleteContactComponent,
   ],
   imports: [
     BrowserModule,

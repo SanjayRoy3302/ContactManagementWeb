@@ -11,7 +11,7 @@
           <input type="text" style="width: 100%;" id="searchTerm" name="searchTerm" placeholder="Search contacts..." autocomplete="off" [(ngModel)]="searchTerm" (keyup)="search()" />
       </div>
       <div class="col-md-1">
-          <button class="btn btn-success" (click)="openModal()">New</button>
+          <button type="button" class="btn btn-success" (click)="openModal()">NEW</button>
       </div>
       
   </div>
@@ -39,7 +39,7 @@
         <button class="btn btn-primary" (click)="EditContact(item)">Edit</button>
       </td>
       <td>
-        <button class="btn btn-danger" (click)="DeleteContact(item.id)">delete</button>
+        <button class="btn btn-danger" (click)="DeleteContact(item)">delete</button>
       </td>
     </tr>
   </tbody>
@@ -50,7 +50,13 @@
     <div class="row col-md-8 TotalPage">
       <div class="row g-3 align-items-center">
         <div class="col-auto">
-        <label class="control-label" for="noOfRows">No. of Rows</label>
+          <span class="bold">Total Records: </span>
+          &nbsp;
+          <span>{{totalRecord}}</span>
+        </div>
+        &nbsp;
+        <div class="col-auto">
+        <label class="control-label bold" for="noOfRows">No. of Rows</label>
       </div>
       <div class="col-auto">
         <select name="noOfRows" (change)="onTableSizeChange($event)" class="form-select form-select-sm">
@@ -62,58 +68,21 @@
     </div>
   </div>
   </div>
-  </div>
-
-
-
-
-
-
-<!-- 
-
-
-
-
-
-<div class="container">
-  <div class="row">
-   
-    <div class="col-md-9">
-        <input type="text" style="width: 100%;" id="searchTerm" name="searchTerm" placeholder="Search contacts..." autocomplete="off" [(ngModel)]="searchTerm" (keyup)="search()" />
-    </div>
-    <div class="col-md-3">
-        <button class="btn btn-success" (click)="openModal()">New</button>
-    </div>
 </div>
-<br>
-<br>
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Firstname</th>
-      <th scope="col">Lastname</th>
-      <th scope="col">Email</th>
-      <th scope="col">Edit</th>
-      <th scope="col">Delete</th>
-    </tr>
-  </thead>
-  <tbody>
-    @for (item of contactList; track $index) {
-      
-    <tr>
-      <td scope="row">{{ $index }}</td>
-      <td>{{item.firstname}}</td>
-      <td>{{item.lastname}}</td>
-      <td>{{item.email}}</td>
-      <td>
-        <button class="btn btn-primary" (click)="EditContact(item)">Edit</button>
-      </td>
-      <td>
-        <button class="btn btn-danger" (click)="DeleteContact(item.id)">delete</button>
-      </td>
-    </tr>
-  }
-  </tbody>
-</table>  
-</div> -->
+  <div class="overlay" *ngIf="popup">
+    <div class="popup">
+      <h2>{{ModalHeading}}</h2>
+      <a class="close" (click)="popup = false">&times;</a>
+      <div class="content">
+        <div *ngIf="modalDialogScreen=='NewContact'"> 
+        <app-add-contact  (newItemEvent)="RecieveMessage($event)"></app-add-contact>
+      </div>
+      <div *ngIf="modalDialogScreen=='UpdateContact'"> 
+        <app-edit-contact [SetData]="dataForUpdate" (newItemEvent)="RecieveMessage($event)"></app-edit-contact>
+      </div>
+      <div *ngIf="modalDialogScreen=='DeleteContact'"> 
+        <app-delete-contact [SetData]="dataForUpdate" (newItemEvent)="RecieveMessage($event)"></app-delete-contact>
+      </div>
+      </div>
+    </div>
+  </div>
