@@ -9,8 +9,9 @@ export class CommonService {
   constructor(private router: Router) { }
 
   ReloadCurrentRoute() {
+    debugger;
     let currentUrl = this.router.url;
-    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+    this.router.navigateByUrl('/home', {skipLocationChange: true}).then(() => {
         this.router.navigate([currentUrl]);
     });
 }

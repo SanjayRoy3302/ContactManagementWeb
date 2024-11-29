@@ -34,7 +34,7 @@
   <table class="table table-striped">
     <thead class="table-primary">
       <tr>
-        <th scope="col">#</th>
+        <th scope="col">Id</th>
         <th scope="col">Firstname</th>
         <th scope="col">Lastname</th>
         <th scope="col">Email</th>
@@ -44,7 +44,7 @@
     </thead>
     <tbody class="table-striped">
     <tr *ngFor="let item of contactList | paginate : pagingConfig; let i = index">
-      <td scope="row">{{ i }}</td>
+      <td scope="row">{{ item.id }}</td>
       <td>{{item.firstname}}</td>
       <td>{{item.lastname}}</td>
       <td>{{item.email}}</td>
